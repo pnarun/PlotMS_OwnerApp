@@ -1,0 +1,43 @@
+<div class="hero-section">
+    <div class="hero-content">
+        <h1>Manage Your Projects and Plots systematically</h1>
+        <!-- <p>Manage Your Projects and Plots systematically</p> -->
+    
+        <div class="search-container">
+            <div class="search-box">
+                <div class="property-type-selector">
+                    <span class="icon">⌂</span>
+                    <select [(ngModel)]="selectedPropertyType" (change)="onSearch()">
+                        <option value="">Property type</option>
+                        <option value="residential">Residential</option>
+                        <option value="commercial">Commercial</option>
+                    </select>
+                </div>
+                <div class="search-input">
+                    <input 
+                        type="text" 
+                        [(ngModel)]="searchQuery"
+                        placeholder="Search by location or Project Name..."
+                        (keyup.enter)="onSearch()">
+                    <button class="search-button" (click)="onSearch()">Search</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+  
+<section id="projects" class="projects-section">
+    <h2>Our Projects</h2>
+    <div class="projects-grid">
+        <a class="project-card" *ngFor="let project of projects" [routerLink]="['/site-map', project.id]">
+            <img [src]="project.imageUrl" 
+                 [alt]="project.name"
+                 onerror="this.src='assets/images/placeholder.jpg'; this.onerror=null;">
+            <div class="project-info">
+                <h3>{{project.name}}</h3>
+                <p>{{project.location}}</p>
+            </div>
+        </a>
+    </div>
+</section>
+  

@@ -1,0 +1,86 @@
+/* Container for footer and logo */
+.footer-container {
+    position: relative;
+    width: 100%;
+  }
+  
+  .footer-logo {
+    position: absolute;
+    top: -30px;  /* Adjust this value to position the logo higher or lower */
+    right: 50px;  /* Distance from right edge */
+    width: 60px;  /* Adjust size as needed */
+    height: 60px;  /* Adjust size as needed */
+    border-radius: 50%;  /* Makes the logo circular */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    background: white;
+    padding: 5px;
+    z-index: 10;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .logo-link:hover .footer-logo {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+  
+  .footer {
+    background-color: #1c2e4a;
+    color: white;
+    padding: 1.5rem 0;
+    text-align: center;
+    width: 100%;
+    box-shadow: 0 -2px 4px rgba(0,0,0,0.2);
+    margin: 0;
+    position: relative;
+  }
+  
+  .footer p {
+    margin: 0;
+    font-size: 1.1rem;
+    line-height: 1.5;
+  }
+  
+  .container {
+    margin: 0 auto;
+    padding: 0 2rem;
+    color: white;
+    max-width: 1200px;
+  }
+  
+  .footer a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  
+  .footer a:hover {
+    opacity: 0.8;
+  }
+  
+  .logo-link {
+    position: absolute;
+    top: -30px;
+    right: 50px;
+    z-index: 10;
+  }
+  
+  @media (max-width: 768px) {
+    .footer {
+      padding: 1.2rem 0;
+    }
+  
+    .footer p {
+      font-size: 1rem;
+    }
+  
+    .logo-link {
+      top: -25px;
+      right: 20px;
+    }
+  
+    .footer-logo {
+      width: 50px;
+      height: 50px;
+      right: 0px;
+    }
+  } 
