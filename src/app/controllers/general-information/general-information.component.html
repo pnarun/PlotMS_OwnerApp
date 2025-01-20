@@ -1,1 +1,113 @@
-<p>general-information works!</p>
+<div class="general-info-page">
+  <app-side-bar></app-side-bar>
+  
+  <div class="main-content">
+    <div class="header">
+      <h1>Site Details of {{info.projectName}} - Plot {{info.plotNo}}</h1>
+    </div>
+
+    <div class="info-section">
+      <div class="section-header">
+        <div class="title">
+          <h2>General Information</h2>
+        </div>
+        <div class="action-buttons">
+          <button *ngIf="!isEditing" class="edit-btn" (click)="startEditing()">
+            <i class="fas fa-edit"></i>
+            Edit
+          </button>
+          <ng-container *ngIf="isEditing">
+            <button class="save-btn" (click)="saveChanges()">
+              <i class="fas fa-check"></i>
+              Save
+            </button>
+            <button class="cancel-btn" (click)="cancelEdit()">
+              <i class="fas fa-times"></i>
+              Cancel
+            </button>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="info-content">
+        <div class="info-item">
+          <label>Project :-</label>
+          <ng-container *ngIf="!isEditing">
+            <span>{{info.projectName}}</span>
+          </ng-container>
+          <input *ngIf="isEditing" type="text" [(ngModel)]="editedInfo.projectName" readonly>
+        </div>
+
+        <div class="info-item">
+          <label>Plot No. :-</label>
+          <ng-container *ngIf="!isEditing">
+            <span>{{info.plotNo}}</span>
+          </ng-container>
+          <input *ngIf="isEditing" type="text" [(ngModel)]="editedInfo.plotNo" readonly>
+        </div>
+
+        <div class="info-item">
+          <label>Plot Size :-</label>
+          <ng-container *ngIf="!isEditing">
+            <span>{{info.plotSize}}</span>
+          </ng-container>
+          <input *ngIf="isEditing" type="text" [(ngModel)]="editedInfo.plotSize">
+        </div>
+
+        <div class="info-item">
+          <label>Owner :-</label>
+          <ng-container *ngIf="!isEditing">
+            <span>{{info.owner}}</span>
+          </ng-container>
+          <input *ngIf="isEditing" type="text" [(ngModel)]="editedInfo.owner">
+        </div>
+
+        <div class="info-item">
+          <label>Quoted Price :-</label>
+          <ng-container *ngIf="!isEditing">
+            <span>{{info.quotedPrice}}</span>
+          </ng-container>
+          <input *ngIf="isEditing" type="text" [(ngModel)]="editedInfo.quotedPrice">
+        </div>
+
+        <div class="info-item">
+          <label>Direction :-</label>
+          <ng-container *ngIf="!isEditing">
+            <span>{{info.direction}}</span>
+          </ng-container>
+          <select *ngIf="isEditing" [(ngModel)]="editedInfo.direction">
+            <option value="East Facing">East Facing</option>
+            <option value="West Facing">West Facing</option>
+            <option value="North Facing">North Facing</option>
+            <option value="South Facing">South Facing</option>
+          </select>
+        </div>
+
+        <div class="info-item">
+          <label>Corner Site :-</label>
+          <ng-container *ngIf="!isEditing">
+            <span>{{info.cornerSite}}</span>
+          </ng-container>
+          <select *ngIf="isEditing" [(ngModel)]="editedInfo.cornerSite">
+            <option value="YES">YES</option>
+            <option value="NO">NO</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="share-section">
+      <button class="share-btn">
+        Share Quote
+      </button>
+    </div>
+  </div>
+
+  <!-- Success Message -->
+  <app-msg-box
+    *ngIf="showSuccessMsg"
+    [show]="true"
+    [message]="'Changes saved successfully!'"
+    (close)="showSuccessMsg = false">
+  </app-msg-box>
+</div>

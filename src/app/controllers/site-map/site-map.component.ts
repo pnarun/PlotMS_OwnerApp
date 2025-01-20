@@ -7,11 +7,19 @@ import { Project } from '../../models/project.interface';
 import { ProjectService } from '../../services/project.service';
 import { MsgBoxComponent } from '../shared/msg-box/msg-box.component';
 import { PlotService } from '../../services/plot.service';
+import { SideBarComponent } from '../shared/side-bar/side-bar.component';
+import { PlotSuccessMsgComponent } from '../shared/plot-success-msg/plot-success-msg.component';
 
 @Component({
   selector: 'app-site-map',
   standalone: true,
-  imports: [CommonModule, FormsModule, MsgBoxComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MsgBoxComponent,
+    SideBarComponent,
+    PlotSuccessMsgComponent
+  ],
   templateUrl: './site-map.component.html',
   styleUrls: ['./site-map.component.css']
 })

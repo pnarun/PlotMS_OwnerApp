@@ -36,10 +36,10 @@
     </div>
   </div>
   
-  <app-msg-box
+  <app-plot-success-msg
     [show]="showMsgBox"
     [projectName]="projectName"
     [plotNumber]="searchQuery?.toString() || ''"
-    (close)="closeMsgBox()"
-  ></app-msg-box>
+    (close)="showMsgBox = false">
+  </app-plot-success-msg>
   

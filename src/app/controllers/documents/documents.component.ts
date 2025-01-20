@@ -5,6 +5,9 @@ import { SideBarComponent } from '../shared/side-bar/side-bar.component';
 import { DocumentService } from '../../services/document.service';
 import { HttpClientModule } from '@angular/common/http';
 import { PlotService } from '../../services/plot.service';
+import { UploadDocumentsComponent } from '../shared/upload-documents/upload-documents.component';
+import { MsgBoxComponent } from '../shared/msg-box/msg-box.component';
+import { FormsModule } from '@angular/forms';
 
 interface Document {
   fileName: string;
@@ -16,7 +19,14 @@ interface Document {
 @Component({
   selector: 'app-documents',
   standalone: true,
-  imports: [CommonModule, SideBarComponent, HttpClientModule],
+  imports: [
+    CommonModule, 
+    SideBarComponent, 
+    HttpClientModule, 
+    UploadDocumentsComponent, 
+    MsgBoxComponent, 
+    FormsModule
+  ],
   templateUrl: './documents.component.html',
   styleUrls: ['./documents.component.css']
 })
@@ -24,6 +34,19 @@ export class DocumentsComponent implements OnInit {
   documents: Document[] = [];
   projectName: string = '';
   plotNumber: string = '';
+  showUploadDialog = false;
+  showSuccessMsg = false;
+  showDeleteConfirm = false;
+  documentToDelete: any = null;
+  documentTypes = [
+    'Allotment Letter',
+    'Khata Certificate',
+    'Sale Deed',
+    'Property Tax Receipts',
+    'NOC',
+    'Payment Receipts',
+    'Others'
+  ];
 
   constructor(
     private route: ActivatedRoute,
@@ -40,26 +63,60 @@ export class DocumentsComponent implements OnInit {
   }
 
   loadDocuments() {
-    // This will be replaced with actual API call
-    this.documents = [
-      { fileName: 'Allotment Letter', fileSize: '28.50 KB', date: '16/11/2022', type: 'pdf' },
-      { fileName: 'Khata Certificate', fileSize: '28.50 KB', date: '16/11/2022', type: 'pdf' },
-      { fileName: 'Sale Deed', fileSize: '28.50 KB', date: '16/11/2022', type: 'pdf' },
-      { fileName: 'Property Tax Receipts', fileSize: '28.50 KB', date: '16/11/2022', type: 'pdf' },
-      { fileName: 'NOC', fileSize: '28.50 KB', date: '16/11/2022', type: 'pdf' },
-      { fileName: 'Payment Receipts', fileSize: '28.50 KB', date: '16/11/2022', type: 'pdf' }
-    ];
+    this.documentService.getDocuments().subscribe(docs => {
+      this.documents = docs;
+    });
   }
 
   uploadDocument() {
     // Implement file upload logic
   }
 
-  viewDocument(doc: Document) {
-    // Implement document view logic
+  viewDocument(doc: any) {
+    this.documentService.viewDocument(doc);
   }
 
-  deleteDocument(doc: Document) {
-    // Implement document delete logic
+  confirmDelete(doc: any) {
+    this.documentToDelete = doc;
+    this.showDeleteConfirm = true;
+  }
+
+  deleteDocument() {
+    if (this.documentToDelete) {
+      this.documentService.deleteDocument(this.documentToDelete.id)
+        .subscribe(success => {
+          if (success) {
+            this.showDeleteConfirm = false;
+            this.documentToDelete = null;
+            this.showSuccessMsg = true;
+            setTimeout(() => {
+              this.showSuccessMsg = false;
+            }, 2000);
+            this.loadDocuments();
+          }
+        });
+    }
+  }
+
+  cancelDelete() {
+    this.showDeleteConfirm = false;
+    this.documentToDelete = null;
+  }
+
+  toggleUploadDialog() {
+    console.log('Toggle upload dialog');
+    this.showUploadDialog = !this.showUploadDialog;
+  }
+
+  onUploadComplete(success: boolean) {
+    console.log('Upload complete:', success);
+    this.showUploadDialog = false;
+    if (success) {
+      this.showSuccessMsg = true;
+      this.loadDocuments(); // Refresh the documents list immediately
+      setTimeout(() => {
+        this.showSuccessMsg = false;
+      }, 2000);
+    }
   }
 }

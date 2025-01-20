@@ -2,21 +2,17 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-msg-box',
+  selector: 'app-plot-success-msg',
   standalone: true,
   imports: [CommonModule],
   template: `
     <div class="msg-box" *ngIf="show">
-      <div class="msg-content" [class.confirm-dialog]="isConfirmDialog">
+      <div class="msg-content">
         <div class="msg-text">
-          <i class="fas" [class.fa-check-circle]="!isConfirmDialog" [class.fa-exclamation-triangle]="isConfirmDialog"></i>
-          {{message}}
+          <i class="fas fa-check-circle success-icon"></i>
+          Plot {{plotNumber}} of {{projectName}} selected successfully!
         </div>
-        <div class="actions" *ngIf="isConfirmDialog">
-          <button class="cancel-btn" (click)="onCancel()">Cancel</button>
-          <button class="delete-btn" (click)="onConfirm()">Delete</button>
-        </div>
-        <button *ngIf="!isConfirmDialog" class="close-btn" (click)="onClose()">×</button>
+        <button class="close-btn" (click)="onClose()">×</button>
       </div>
     </div>
   `,
@@ -75,52 +71,15 @@ import { CommonModule } from '@angular/common';
         opacity: 1;
       }
     }
-
-    .confirm-dialog {
-      background: #ff4444;
-    }
-
-    .actions {
-      display: flex;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-
-    .cancel-btn, .delete-btn {
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    .cancel-btn {
-      background: #fff;
-      color: #333;
-    }
-
-    .delete-btn {
-      background: #dc3545;
-      color: white;
-    }
   `]
 })
-export class MsgBoxComponent {
+export class PlotSuccessMsgComponent {
   @Input() show: boolean = false;
-  @Input() message: string = '';
-  @Input() isConfirmDialog: boolean = false;
+  @Input() projectName: string = '';
+  @Input() plotNumber: string = '';
   @Output() close = new EventEmitter<void>();
-  @Output() confirm = new EventEmitter<void>();
-  @Output() cancel = new EventEmitter<void>();
 
   onClose() {
     this.close.emit();
   }
-
-  onConfirm() {
-    this.confirm.emit();
-  }
-
-  onCancel() {
-    this.cancel.emit();
-  }
-}
+} 
