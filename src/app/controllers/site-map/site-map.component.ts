@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import { Project } from '../../models/project.interface';
 import { ProjectService } from '../../services/project.service';
 import { MsgBoxComponent } from '../shared/msg-box/msg-box.component';
+import { PlotService } from '../../services/plot.service';
 
 @Component({
   selector: 'app-site-map',
@@ -30,7 +31,8 @@ export class SiteMapComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private location: Location,
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private plotService: PlotService
   ) {}
 
   ngOnInit() {
@@ -81,7 +83,13 @@ export class SiteMapComponent implements OnInit {
 
   onSearch() {
     if (this.searchQuery && this.isValidInput) {
-      this.showMsgBox = true;
+      // Store plot details before navigation
+      this.plotService.setPlotDetails({
+        projectName: this.projectName,
+        plotId: this.searchQuery.toString()
+      });
+      
+      this.router.navigate(['/documents', this.searchQuery]);
     }
   }
 

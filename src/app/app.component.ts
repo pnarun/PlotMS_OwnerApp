@@ -1,38 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule, ViewportScroller } from '@angular/common';
-import { RouterOutlet, RouterLink, RouterLinkActive, Router, NavigationEnd } from '@angular/router';
-import { HomePageComponent } from './controllers/home-page/home-page.component';
-import { FooterComponent } from './controllers/shared/footer/footer.component';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './controllers/shared/header/header.component';
+import { FooterComponent } from './controllers/shared/footer/footer.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     CommonModule,
-    RouterOutlet, 
-    RouterLink,
-    RouterLinkActive,
-    HomePageComponent,
-    FooterComponent,
-    HeaderComponent
+    RouterOutlet,
+    HeaderComponent,
+    FooterComponent
   ],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  template: `
+    <app-header></app-header>
+    <router-outlet></router-outlet>
+    <app-footer></app-footer>
+  `
 })
-export class AppComponent implements OnInit {
-  title = 'userApplication';
-
-  constructor(
-    private router: Router,
-    private viewportScroller: ViewportScroller
-  ) {}
-
-  ngOnInit() {
-    this.router?.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.viewportScroller.scrollToPosition([0, 0]);
-      }
-    });
-  }
+export class AppComponent {
+  title = 'OwnerApplication';
 }

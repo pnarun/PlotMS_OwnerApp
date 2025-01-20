@@ -1,1 +1,50 @@
-<p>documents works!</p>
+<div class="documents-page">
+  <app-side-bar></app-side-bar>
+  
+  <div class="main-content">
+    <div class="header">
+      <h1>Site Details of {{projectName}} - Plot {{plotNumber}}</h1>
+    </div>
+
+    <div class="documents-section">
+      <div class="section-header">
+        <div class="title">
+          <i class="fas fa-folder"></i>
+          <h2>Documents</h2>
+        </div>
+        <button class="upload-btn" (click)="uploadDocument()">
+          <i class="fas fa-upload"></i>
+          Upload Document
+        </button>
+      </div>
+
+      <div class="documents-table">
+        <div class="table-header">
+          <div class="col">File Name</div>
+          <div class="col">File Size</div>
+          <div class="col">Date</div>
+          <div class="col">Action</div>
+        </div>
+
+        <div class="table-body">
+          <div class="table-row" *ngFor="let doc of documents">
+            <div class="col filename">
+              <i class="fas fa-file-pdf"></i>
+              {{doc.fileName}}
+            </div>
+            <div class="col">{{doc.fileSize}}</div>
+            <div class="col">{{doc.date}}</div>
+            <div class="col actions">
+              <button class="action-btn view" (click)="viewDocument(doc)">
+                <i class="fas fa-eye"></i>
+              </button>
+              <button class="action-btn delete" (click)="deleteDocument(doc)">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
