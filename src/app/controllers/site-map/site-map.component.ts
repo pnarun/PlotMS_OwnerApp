@@ -5,7 +5,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Project } from '../../models/project.interface';
 import { ProjectService } from '../../services/project.service';
-import { MsgBoxComponent } from '../shared/msg-box/msg-box.component';
 import { PlotService } from '../../services/plot.service';
 import { SideBarComponent } from '../shared/side-bar/side-bar.component';
 import { PlotSuccessMsgComponent } from '../shared/plot-success-msg/plot-success-msg.component';
@@ -16,7 +15,6 @@ import { PlotSuccessMsgComponent } from '../shared/plot-success-msg/plot-success
   imports: [
     CommonModule,
     FormsModule,
-    MsgBoxComponent,
     SideBarComponent,
     PlotSuccessMsgComponent
   ],

@@ -196,4 +196,10 @@ header {
     .company-type {
       font-size: 1rem;
     }
+  }
+  
+  .disabled {
+    pointer-events: none; /* Disable click events */
+    color: #ccc; /* Change color to indicate disabled state */
+    text-decoration: none; /* Remove underline */
   } 

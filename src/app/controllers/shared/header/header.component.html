@@ -1,9 +1,9 @@
 <header>
     <div class="logo">
-      <a routerLink="/home">
+      <a routerLink="/home" [class.disabled]="isLoginPage()">
         <img src="assets/images/logo/sjd-logo.png" alt="SJD Logo">
         <div class="logo-text">
-          <span class="company-name">SJD Developers</span>
+          <span class="company-name" [class.disabled]="isLoginPage()">SJD Developers</span>
         </div>
       </a>
     </div>
@@ -17,8 +17,15 @@
   
       <nav [class.active]="isMenuOpen">
         <ul>
-          <li><a routerLink="/home" routerLinkActive="active" (click)="closeMenu()">Projects</a></li>
-          <li><a routerLink="/analytics" routerLinkActive="active" (click)="closeMenu()">Analytics</a></li>
+          <li>
+            <a routerLink="/home" routerLinkActive="active" (click)="closeMenu()" [class.disabled]="isLoginPage()">Projects</a>
+          </li>
+          <li>
+            <a routerLink="/analytics" routerLinkActive="active" (click)="closeMenu()" [class.disabled]="isLoginPage()">Analytics</a>
+          </li>
+          <li>
+            <a routerLink="/logout" (click)="closeMenu()">Logout</a>
+          </li>
           <!-- <li><a routerLink="/contact-us" routerLinkActive="active" (click)="closeMenu()">Contact Us</a></li> -->
         </ul>
       </nav>
